@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+.div1 {
+  width: 50%;
+  height: 87px;
+  border: 1px solid #000;
+  overflow: hidden;
+  position: relative;
+  text-align: justify;
+  padding-right: 1em;
+}
+
+.div1::before{
+  content: "...";
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+}
+
+.div1::after{
+  content: "";
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  display: inline;
+  right: 0;
+  margin-top: 0.5em;
+  background-color: #fff;
+}
+
+  </style>
+
+
+</head>
+
+<body>
+  <div class="div1">nt voluptatem atque ea hic consequuntur error. Nesciunt?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, cum eveniet, quisquam rerum laborum aut debitis molestiae id necessitatibus ullam dolores consequatur, sint voluptatem atque ea hic consequuntur error. Nesciunt?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, cum eveniet, quisquam rerum laborum aut debitis molestiae id necessitatibus ullam dolores consequatur, sint voluptatem atque ea hic consequuntur error. Nesciunt?</div>
+</body>
+
+</html>

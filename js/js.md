@@ -141,3 +141,25 @@ function DeepClone(obj){
 }
 ```
 
+##### 类型转换
+
+- 字符串拼接
+
+  ```javascript
+  let a = 100 + 10;   // 110
+  let b = 100 + '10';   // "10010"
+  let c = 100 + parseInt('10'); // 110
+  let d = true + '110';   // "true110"
+  ```
+
+- ==和===
+
+  ```javascript
+  100 == '100'    // true
+  0 == ''   // ture
+  0 == false    // true 
+  false == ''   // true
+  null == undefined   // true
+  ```
+
+  ​		因此为了避免这种类型转换，我们在实际开发中使用 === ，只有在判断是否为null的时候，才会使用 == 。

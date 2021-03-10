@@ -132,9 +132,9 @@
 
 
 
-![文本省略1](D:\garfield\wesharp\前端\前端面试\css\imgs\文本省略1.png)
+![文本省略1](.\imgs\文本省略1.png)
 
-![文本省略2](D:\garfield\wesharp\前端\前端面试\css\imgs\文本省略2.png)
+![文本省略2](.\imgs\文本省略2.png)
 
 
 
@@ -246,3 +246,35 @@
 - ::first-letter ::fiest-line
 - ::selection
 - ::placeholder
+
+
+
+#### 6、隐藏元素的方法
+
+- display : none;
+
+  特点：
+
+  - 浏览器会进行重排和重绘，DOM结点会消失
+  - 子元素也会跟着隐藏，即使子元素设置display为block也无效
+  - transition失效
+  - 自身绑定事件也不会触发
+  - 不会影响被遮挡元素的触发事件
+
+- visibility：hidden
+
+  特点：
+
+  - 浏览器会进行重绘但不会进行重排，DOM结点依旧存在
+  - 子元素也会跟着隐藏，但是给子元素设置visibility：visible，子元素会显示
+  - transition不会失效
+  - 自身绑定事件不会触发
+  - 不会影响被遮挡元素的触发事件
+
+- opacity： 0
+
+  - 浏览器不会进行重绘，DOM结点依旧存在
+  - 子元素也会跟着隐藏
+  - transition不会失效
+  - 自身绑定事件可以触发
+  - 会影响被遮挡元素的触发事件

@@ -253,3 +253,99 @@ lilei.study();		// I'm studying
 - 获取属性或者方法时
 - 先在自身的方法和属性中寻找
 - 如果找不到则去`__proto__`中寻找
+
+##### 1.2.5 原型链
+
+​		这里还是用上面的代码作为例子来阐释以下原型链。
+
+![proto2](D:\garfield\wesharp\前端\前端面试\js\imgs\proto2.png)
+
+​		Student的显示原型的隐式原型，即`Student.prototype.__proto__`是等于Person的显示原型，即`Person.prototype`。而Person的显式原型的隐式原型，`Person.prototype.__proto__`又等于Object的显示原型，`Object.prototype`。原型链的尽头就是Object.prototype。大家可以在浏览器的控制台中自行验证。而当我们需要访问lilei中的某个属性，或者某个方法，会沿着这条原型链一直找，直到找到或者找到原型链尽头。就比如我想使用lilei.hasOwnProperty这个方法，那么它就先在自己内部找有没有这个方法，发现没有，接着到Student.prototype中找，发现也没有，此时，因为Student是继承了Person，因此接下来会到Person.prototype中寻找，发现Person中也没，就会到Object.prototype中寻找，终于找到了！~
+
+##### 1.2.6 instanceof工作原理
+
+​		instanceof的实际工作原理就是基于原型链一层层往上找，如果后面跟的类型是存在于这个原型链之中的，就返回true，否则返回false。
+
+​		还是拿上面的代码举例：
+
+```javascript
+lilei instanceof Student;	// true
+lilei instanceof Person;	// true
+lilei instanceof Object;	// true
+lilei instanceof Array;		// false
+```
+
+
+
+##### 1.2.7 引例解答
+
+1. 如何判断一个变量是不是数组类型
+
+   答：instanceof即可。
+
+2. 手写jQuery
+
+   答：略
+
+3. class的原型本质，怎么理解？
+
+   答：class是es6推出的创建类的语法糖，本质上上还是基于function的原型链来模拟类的创建。
+
+
+
+#### 1.3 作用域和闭包
+
+##### 1.3.1 引例
+
+1. this的不同应用场景，如何取值？
+2. 手写bind函数，call函数，apply函数
+3. 实际开发中闭包的应用场景，举例说明
+4. 创建10个a标签，点击的时候单出来对应的序号
+
+##### 1.3.2 作用域和自由变量
+
+​		作用域有三种类型：
+
+- 全局作用域：代码中直接var出一个变量，不受约束
+
+- 函数作用域；在函数中，我们可以访问到函数中定义的变量，但是从函数外部，我们访问。
+
+- 块级作用域：在{}中用let声明出的变量
+
+  自由变量：
+
+  ​		如果一个变量在当前作用域没有被定义，但是被使用了，js引擎就会像上级作用域一层一层依次寻找，直到找到位置，如果到全局作用域下都没找到，就会报错 xxx is not defined
+
+##### 1.3.3 闭包
+
+​		首先要明确一点：自由变量的查找是从函数定义的地方向上级作用域查找，不是在执行的地方！
+
+```javascript
+// 函数返回时用到了函数作用域中的变量
+function fn(){
+  const a = 200;
+  return function () {
+    console.log(a);
+  }
+}
+
+const a = 10;
+const b = fn();
+b();		// 200
+
+// 函数作为变量传进另外一个函数
+function fn2 (fn1){
+  return e;
+}
+
+function fn1(){
+  const e = 200;
+}
+const e = 100;
+const f = fn2(fn1);
+console.log(f);   // 100
+```
+
+
+
+##### 1.3.4 this

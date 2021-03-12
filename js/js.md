@@ -349,3 +349,207 @@ console.log(f);   // 100
 
 
 ##### 1.3.4 this
+
+​		this 是在**运行时进行绑定的**，并不是在编写时绑定，它的**上下文**取决于**函数调用时**的各种条件。this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
+
+```javascript
+function fn1(){
+  console.log(this);
+}
+// 默认绑定
+fn1();  // window
+
+// 显示绑定
+fn1.call({x:100})   // {x:100}
+const fn2 = fn1.bind({a:10});
+fn2();    // {a:10}
+
+// new绑定
+function foo(){
+  console.log(this);
+}
+let bar = new foo();		// foo()
+```
+
+- 上面的fn1（）称为this的默认绑定，根据函数调用时的条件决定this的指向。
+- 通过call，bind以及apply强行改变this的指向，这称其为显示绑定。
+- 将this绑定到new出来的变量，称为new绑定
+- 还有一种隐式绑定就是指通过对象调用里面的方法。此时this指向这个对象
+
+```javascript
+const per = {
+  name:'garfield',
+  logThis(){
+    console.log(this);
+  },
+  wait(){
+    setTimeout(() => {
+      console.log(this);
+    }, 0);
+  },
+  watiAgain(){
+    setTimeout(function(){
+      console.log(this);
+    }, 100);
+  }
+}
+per.wait();   // {name:'garfield', .......}
+per.watiAgain()   // window
+```
+
+​		需要注意地是箭头函数和普通函数在一个对象中this指向的不同！
+
+##### 1.3.5 引例解答
+
+1. this的不同应用场景，如何取值？
+
+   答：四种绑定方式——显示绑定，隐式绑定，new绑定，默认绑定。箭头函数和this的关系。
+
+2. 手写bind函数，call函数，apply函数
+
+   答：
+
+   ```javascript
+   // call
+   Function.prototype.newCall = function (thisArg){
+     if (thisArg == null) {
+       thisArg = window;
+       this();
+     } else{
+       let newArgs = [];
+       for (let i=1; i< arguments.length; i++){
+         newArgs.push(arguments[i]);
+       }
+       thisArg.newMethod = this;
+       thisArg.newMethod(...newArgs);
+       delete thisArg.newMethod;
+     }
+   }
+   
+   // 简易bind
+   Function.prototype.newBind = function (thisArg){
+     let thisFn = this;
+     let newArgs = [];
+     for (let i=1; i< arguments.length; i++){
+       newArgs.push(arguments[i]);
+     }
+     let resfunction = ()=>{
+       return thisFn.call(thisArg, ...newArgs)
+     }
+     return resfunction;
+   }
+   let fn2 = outputInfo.newBind(obj1, 1,2,3,4)
+   fn2();
+   
+   // apply
+   Function.prototype.newApply = function (thisArg){
+     if (thisArg == null) {
+       thisArg = window;
+       this();
+     } else{
+       let newArgs = arguments[1];
+       thisArg.newMethod = this;
+       let res = thisArg.newMethod(...newArgs);
+       delete thisArg.newMethod;
+       return res;
+     }
+   }
+   ```
+
+   
+
+3. 实际开发中闭包的应用场景，举例说明
+
+   - 隐藏数据
+
+     ```javascript
+     function fn (){
+       let PrivateData = {
+         address:'shanghai pudong',
+         married: false,
+         phone: '1xxxxxxxxx',
+         password: 'xxxx'
+       }
+       return {
+         set: function (key, value){
+           PrivateData[key] = value;
+         },
+     
+         get: function (key){
+           return PrivateData[key];
+         }
+       }
+     }
+     
+     let bar = fn();
+     bar.set('address', 'Hubei Wuhan')
+     console.log(bar.get('married')); 
+     console.log(bar.get('address'));
+     ```
+
+   - 防抖
+
+     ```javascript
+     /**
+      * 
+      * @param {执行函数}} fn 
+      * @param {延迟} time 
+      * @returns 
+      */
+     function debounce(fn, time){
+       let timer = null;
+       return function(){
+         let args = Array.prototype.slice.call(arguments)
+         if (timer) {
+           clearTimeout(timer);
+         }
+         timer = setTimeout(()=>{
+           fn.call(this, ...args)
+         }, time)
+       }
+     }
+     ```
+
+   - 节流
+
+     ```javascript
+     /**
+      * 
+      * @param {function} fn 
+      * @param {delay time} delay 
+      * @returns 
+      */
+     function throttle(fn, delay){
+       let timer;
+       return function(){
+         let args = Array.prototype.slice.call(arguments);
+         let now = Date.now();
+         if (!timer || now - timer > delay) {
+           timer = now;
+           fn.call(this,...args);
+           return ;
+         } else {
+           timer = now;
+           return ;
+         }
+       }
+     }
+     ```
+
+     
+
+4. 创建10个a标签，点击的时候单出来对应的序号
+
+```javascript
+let div = document.getElementById('tag');
+for(let i = 0; i < 10; i++){
+  let a;
+  a = document.createElement('a');
+  a.innerHTML = 'a标签' + '<br>';
+  a.addEventListener('click',()=>{
+    alert(i);
+  })
+  div.appendChild(a);
+}
+```
+

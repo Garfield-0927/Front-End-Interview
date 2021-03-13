@@ -33,7 +33,7 @@
 // let bar = new foo();
 
 
-//手写call
+// 手写call
 // let obj1 = {
 //   name : 'garfield',
 //   age : 18
@@ -176,13 +176,13 @@
 // let btn = throttle(btnevent,2000);
 
 
-let div = document.getElementById('tag');
-for(let i = 0; i < 10; i++){
-  let a;
-  a = document.createElement('a');
-  a.innerHTML = 'a标签' + '<br>';
-  a.addEventListener('click',()=>{
-    alert(i);
-  })
-  div.appendChild(a);
-}
+// let div = document.getElementById('tag');
+// for(let i = 0; i < 10; i++){
+//   let a;
+//   a = document.createElement('a');
+//   a.innerHTML = 'a标签' + '<br>';
+//   a.addEventListener('click',()=>{
+//     alert(i);
+//   })
+//   div.appendChild(a);
+// }

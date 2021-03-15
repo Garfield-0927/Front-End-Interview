@@ -13,12 +13,13 @@
 
   <script>
     let arr = [1,2,3,4,6,5];
-    
+    let a = arr.splice(1,1);    // arr: [1,3,4,6,5]; a:[2]
+    let b = arr.splice(1,1,123) // arr: [1,123,3,4,6,5]; b:[2]
+    let c = arr.splice(1,3)     // arr: [1,6,5]; c:[2,3,4]
     // let a = arr.shift()
     // arr.pop();
     // arr.unshift(99,98,97)
-
-    console.log(arr,a);
+    console.log(arr,c);
 
 
   </script>

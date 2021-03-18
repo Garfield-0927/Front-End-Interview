@@ -12,7 +12,7 @@
 
 
   <script>
-    let arr = [1,2,3,4,6,5,6];  
+    // let arr = [1,2,3,4,6,5,6];  
     
 
     // let a = arr.lastIndexOf(6);   // 6
@@ -29,9 +29,104 @@
     // let a = arr.shift()
     // arr.pop();
     // arr.unshift(99,98,97)
-    console.log(arr,a);
+    // console.log(arr,a);
 
 
+    let arr = [
+      {
+        id: 1,
+        name: 'xiaoming',
+        gender: 'male',
+        score: 98
+      },
+      {
+        id: 2,
+        name: 'xiaohong',
+        gender: 'female',
+        score: 90
+      },
+      {
+        id: 3,
+        name: 'xiaolan',
+        gender: 'male',
+        score: 88
+      },
+      {
+        id: 4,
+        name: 'xiaowang',
+        gender: 'male',
+        score: 96
+      },
+      {
+        id: 5,
+        name: 'xiaozhang',
+        gender: 'male',
+        score: 80
+      },
+      {
+        id: 6,
+        name: 'xiaosu',
+        gender: 'male',
+        score: 59
+      },
+      {
+        id: 7,
+        name: 'xiaoli',
+        gender: 'male',
+        score: 68
+      },
+      {
+        id: 8,
+        name: 'xiaolu',
+        gender: 'female',
+        score: 77
+      },
+      ]
+
+
+    // arr.forEach((item)=>{
+    //   console.log(item.name);   // xiaoming xiaohong xiaolan xiaowang ... ... xiaolu
+    // })
+    
+    // const arr2 = arr.filter((item)=>{
+    //   return item.gender === 'female'
+    // })
+
+    // console.log(arr2);
+
+    // const arr2 = arr.map((item)=>{
+    //   return item.name;
+    // })
+    // console.log(arr2);
+
+    // const NoOneFail = arr.every((item)=> item.score > 60)
+    // const NoOneLowerThan50 = arr.every((item)=> item.score > 50)
+    // console.log(NoOneFail);
+    // console.log(NoOneLowerThan50);
+
+    // const fail = arr.find((item)=>{
+    //   return item.score < 80;
+    // })
+    // console.log(fail);
+
+    // const test = arr.findIndex((item)=>{
+    //   return item.score < 90;
+    // })
+    // const test2 = arr.findIndex((item)=>{
+    //   return item.score < 60;
+    // })
+    // const test3 = arr.findIndex((item)=>{
+    //   return item.score < 50;
+    // })
+    // console.log(test);
+    // console.log(test2);
+    // console.log(test3);
+
+
+    arr.sort((a,b)=>{
+      return a.score - b.score;
+    })
+    console.log(arr);
   </script>
 </body>
 </html>
